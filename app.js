@@ -1,4 +1,16 @@
 const choices = ["rock", "paper", "scissors"]
+const container = document.querySelector("#container")
+const rockButton = document.querySelector("#rock")
+const paperButton = document.querySelector("#paper")
+const scissorsButton = document.querySelector("#scissors")
+let playerWins = 0;
+let computerWins = 0;
+let roundsPlayer = 0;
+let overallWinner;
+
+rockButton.addEventListener("click", (event) => {playRound(playerChoice = getPlayerChoice(event.target.id), computerChoice = getComputerChoice())})
+paperButton.addEventListener("click", (event) => {playRound(playerChoice = getPlayerChoice(event.target.id), computerChoice = getComputerChoice())})
+scissorsButton.addEventListener("click", (event) => {playRound(playerChoice = getPlayerChoice(event.target.id), computerChoice = getComputerChoice())})
 
 function getComputerChoice() {
     let selection;
@@ -8,15 +20,12 @@ function getComputerChoice() {
     return selection;
 };
 
-function getPlayerChoice() {
-    let selection;
+function getPlayerChoice(selection) {
     while (!(choices.includes(selection))) {
         selection = prompt("Rock | Paper | Scissors:").toLowerCase();
     }
     console.log("Player chose: " + selection);
     return selection;
-    
-
 };
 
 function playRound(playerChoice, computerChoice) {
@@ -28,21 +37,22 @@ function playRound(playerChoice, computerChoice) {
         (playerChoice === "rock" && computerChoice === "scissors")
         || (playerChoice === "scissors" && computerChoice === "paper")
         || (playerChoice === "paper" && computerChoice === "rock")
-    ) {
-        roundWinner = "Player"
-    }
-    else {
-        roundWinner = "Computer"
-    };
-    console.log("Winner was: " + roundWinner)
+        ) {
+            roundWinner = "Player"
+        }
+        else {
+            roundWinner = "Computer"
+        };
+    
+    console.log("Winner was: " + roundWinner)    
+    const div = document.createElement("div")
+    div.textContent = `Player choice: ${playerChoice} | Computer choice: ${computerChoice} | Round winner: ${roundWinner}`
+    container.appendChild(div)
+    
     return roundWinner
 }
 
 function playGame() {
-    let playerWins = 0;
-    let computerWins = 0;
-    let overallWinner;
-
     for (let i = 1; i <= 5; i++) {
         console.log("Round: " + i + ". Please choose.")
         switch (playRound (getPlayerChoice(), getComputerChoice()))
@@ -78,4 +88,3 @@ function getOverallWinner(playerWins, computerWins) {
     return overallWinner
 }
 
-playGame()
